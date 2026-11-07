@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+.vs/
+.idea/
+*.user
+*.suo
+dist/
+*.db
+*.db-shm
+*.db-wal
+*.fenix-part
