@@ -12,6 +12,8 @@ permissions:
 
 jobs:
   build:
+    # Skip until the complete source tree has been copied to the repository root.
+    if: ${{ hashFiles('src/FENIX.App/FENIX.App.csproj') != '' }}
     runs-on: windows-latest
     steps:
       - name: Checkout source
