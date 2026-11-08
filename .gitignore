@@ -1,11 +1,23 @@
-**/bin/
-**/obj/
+# Build output and IDE state
 .vs/
 .idea/
+**/bin/
+**/obj/
+.tools/
+dist/
 *.user
 *.suo
-dist/
+
+# Runtime data, logs and temporary downloads (never commit user data)
 *.db
 *.db-shm
 *.db-wal
-*.fenix-part
+*.log
+crash.log
+Logs/
+*.part
+*.partial
+
+# Bundled runtime is downloaded by the build script
+src/FENIX.App/Resources/Bundled/*
+!src/FENIX.App/Resources/Bundled/.gitkeep
