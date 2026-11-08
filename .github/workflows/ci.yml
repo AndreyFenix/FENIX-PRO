@@ -12,17 +12,25 @@ permissions:
 
 jobs:
   build:
-    # Skip until the complete source tree has been copied to the repository root.
-    if: ${{ hashFiles('src/FENIX.App/FENIX.App.csproj') != '' }}
     runs-on: windows-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
+      - name: Check that the application source is present
+        id: source
+        shell: pwsh
+        run: |
+          $found = Test-Path 'src/FENIX.App/FENIX.App.csproj'
+          "found=$($found.ToString().ToLowerInvariant())" >> $env:GITHUB_OUTPUT
+          if (-not $found) { Write-Host '::notice::Application source is not imported yet; compile steps are skipped.' }
+
       - name: Install .NET 10 SDK
+        if: steps.source.outputs.found == 'true'
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0.x'
 
       - name: Restore and compile WPF application
+        if: steps.source.outputs.found == 'true'
         run: dotnet build src/FENIX.App/FENIX.App.csproj --configuration Release
