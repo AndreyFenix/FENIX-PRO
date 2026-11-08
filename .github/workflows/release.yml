@@ -15,12 +15,16 @@ concurrency:
 
 jobs:
   release:
-    # A release must not start until the actual app and build script are present at repo root.
-    if: ${{ hashFiles('src/FENIX.App/FENIX.App.csproj') != '' && hashFiles('build/Build-Windows.ps1') != '' }}
     runs-on: windows-latest
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+
+      - name: Verify complete source tree
+        shell: pwsh
+        run: |
+          if (!(Test-Path 'src/FENIX.App/FENIX.App.csproj')) { throw 'Missing src/FENIX.App/FENIX.App.csproj. Import the complete source tree at repository root before tagging a release.' }
+          if (!(Test-Path 'build/Build-Windows.ps1')) { throw 'Missing build/Build-Windows.ps1.' }
 
       - name: Install .NET 10 SDK
         uses: actions/setup-dotnet@v4
