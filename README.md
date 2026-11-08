@@ -1,29 +1,50 @@
-# FENIX PRO
+# FENIX PRO 1.0.0
 
-Windows desktop download manager built with WPF and .NET 10.
+**FENIX PRO** is a Windows download manager built with WPF and .NET 10. Version **1.0.0** is intended to be the project's first public release.
 
-## Current source package
-The current development source package is **FENIX PRO 1.3.2**. It includes:
-- Responsive UI layouts for wide, medium and compact windows.
-- A shared FENIX-styled dialog service.
-- Automatic fallback when a configured download drive is missing.
-- GitHub updater configured for this repository.
-- yt-dlp, Deno and FFmpeg bundling build pipeline.
+[![Build](https://github.com/AndreyFenix/FENIX-PRO/actions/workflows/ci.yml/badge.svg)](https://github.com/AndreyFenix/FENIX-PRO/actions/workflows/ci.yml)
 
-The source package is distributed separately while the repository is being prepared for a full source import.
+## Features
 
-## In-app updates
-The updater checks this public repository's GitHub Releases and requires these exact assets:
+- Dark desktop interface with wide, regular and compact window layouts.
+- Ukrainian, Russian and English interface languages.
+- Adjustable text size from 90% to 130%.
+- Link analysis and preview metadata when the source provides it.
+- Video output: MP4, MKV and WebM.
+- Audio output: MP3, M4A, FLAC, WAV, Opus and AAC.
+- Download profiles, queue, concurrency controls and per-task speed limits.
+- History and searchable media library.
+- Duplicate protection and settings export/import.
+- Optional mini mode and always-on-top behavior.
+- Public GitHub Releases update checks with SHA-256 verification.
+
+## Downloads
+
+The first public Windows x64 build will be published on the [Releases page](https://github.com/AndreyFenix/FENIX-PRO/releases) after the source tree is uploaded and the Windows build is tested.
+
+The updater expects these exact release assets:
 - `FENIX-PRO-x64.exe`
 - `FENIX-PRO-x64.exe.sha256`
 
-**No published Release currently means no in-app update is available yet.** A source commit or README change alone does not deliver an update to installed applications. Before publishing a release, build and test the EXE on Windows 10/11 x64.
+A source-code commit by itself does not deliver an in-app update. A published, non-draft, non-prerelease GitHub Release containing the executable and checksum is required.
 
-## Build and validation
-The source package targets .NET 10 / Windows x64. Static XML and archive checks have been performed, but a Windows build and interactive UI tests at several window sizes are still required.
+## Build from source
 
-## Supported media sources
-FENIX uses yt-dlp for supported media pages and a direct HTTP downloader for ordinary public file URLs. Site support changes over time; a URL must be tested and may not work merely because the site has a video player.
+On Windows 10/11 x64 with the .NET 10 SDK, run `build/Build-Windows.cmd` or `build/Build-Windows.ps1`. The build script prepares the Windows x64 tools and produces a self-contained executable in `dist`.
 
-## Responsible use
-Only download content you own or are authorized to save. FENIX does not bypass DRM, private-content controls or access restrictions.
+The repository root must contain `FENIX.sln`, `.github/`, `build/`, `docs/` and `src/`. Do not place the entire project inside an extra nested `FENIX_PRO/` directory.
+
+## Supported sources and limitations
+
+FENIX uses yt-dlp for supported media pages and a direct HTTP downloader for ordinary public file URLs. Site support depends on the source and may change. Thumbnails, alternate audio languages and duration are shown only when the source exposes that information.
+
+FENIX does not bypass DRM, authentication, private-content controls or other access restrictions. Only download materials you own or are authorized to save.
+
+## Project links
+
+- Repository: https://github.com/AndreyFenix/FENIX-PRO
+- Telegram: https://t.me/fenix_download_video
+
+## Release validation
+
+The source needs a successful Windows build and the checks in `docs/RELEASE_CHECKLIST.md` before it should be treated as a stable public release. Review `docs/THIRD_PARTY_NOTICES.md` before redistributing the executable.
